@@ -1,26 +1,4 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css') }}">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <style>
-      body {
-        background-color:antiquewhite;
-      }
-  </style>
-  </head>
-  <body>
-    <h1>Chat Bot</h1>
-    <div>
-      <div id="chatbox">
-        <p class="botText"><span>Hi! I'm Chatterbot.</span></p>
-      </div>
-      <div id="userInput">
-        <input id="textInput" type="text" name="msg" placeholder="Enter Message here">
-        <input id="buttonInput" type="submit" value="Send">
-      </div>
-      <script>
-        /* get response script */
+/* get response script */
 function getBotResponse() {
     var rawText = $("#textInput").val();
     var userHtml = '<p class="userText"><span>' + rawText + '</span></p>';
@@ -43,8 +21,3 @@ function getBotResponse() {
           getBotResponse();
       }
   })
-
-      </script>
-    </div>
-  </body>
-</html>

@@ -1,5 +1,5 @@
 # Import Flask library.
-from flask import Flask
+from flask import Flask, render_template, request
 from chatterbot import ChatBot
 from chatterbot.trainers import ListTrainer, ChatterBotCorpusTrainer
 
@@ -7,12 +7,7 @@ from chatterbot.trainers import ListTrainer, ChatterBotCorpusTrainer
 tourism_bot = ChatBot(
     name="Touria",
     read_only=True,
-    logic_adapters=[
-        {
-        'import_path': 'chatterbot.logic.BestMatch',
-    'default_response': 'I am sorry, I do not understand. You can ask me What is the weather like in Norwich.'
-}
-]
+    logic_adapters=["chatterbot.logic.BestMatch"]
 )
 
 # Training the bot on small talk
@@ -40,9 +35,14 @@ cities_list = ['Lake District National Park', 'Corfe Castle', 'The Cotswolds', '
 app = Flask(__name__)
 
 @app.route("/")
-def hello_world():
-    return "<p>Hello, World!</p>"
+def index():
+    return render_template("index.html")
 
+@app.route("/get")
+def get_bot_response():
+    usertext = request.args.get('msg')
+    bot_response = tourism_bot.get_response(usertext)
+    return str(bot_response)
 
 if __name__ == "__main__":
     app.run()
